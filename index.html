@@ -1,0 +1,124 @@
+<!-- JANN SOFTWARE GOAL SETTING TIME TRACKING TECHNOLOGY -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Time</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
+
+</head>
+<body>
+    <div id="container">
+        <h1>Countdown</h1>
+        <!-- <button onclick="jones()">Console.log DB</button> we don't need this button anymore as form automatically calls functions -->
+        <a href="./time.html">time</a>
+    
+        <form id="myform">
+            <p>I want to be a (an) <input type="text" name="occupation"></p>
+            <p>By the time <input type="date" name="time"></p>
+            <p><input type="submit" value="obey"></p>
+        </form>
+        <div id="result">
+            <h3>Initial Result: </h3>
+        </div>
+        <div id="database">
+            <h2>Db: </h2>
+        </div>
+    </div>
+    
+
+<script>
+    // 3ways2 submit form  event listeners, and var.onsubit, 3rd way is in html onsubmit = func()
+        document.getElementById("myform").addEventListener('submit', myFunc);
+        function myFunc(e){
+            e.preventDefault();
+            console.log("form fired");
+            console.log(document.getElementById("myform").occupation.value);
+        }
+        function jones(){
+            idk();
+            console.log(db);
+        }
+        var form = document.getElementById('myform');
+        form.onsubmit = function(e){
+            e.preventDefault();
+            console.log(form.time.value);
+            // push new obj with form value to db
+            var newObj = {
+                "occupation": form.occupation.value,
+                "time": form.time.value
+            };
+            db.push(newObj);
+            document.getElementById("result").innerHTML = `
+                <h1>You want to be a ${form.occupation.value} by ${form.time.value}? </h1>
+            `;
+            var now = new Date().getTime();
+            var then = form.time.value;
+
+            document.getElementById("result").innerHTML += `
+                <h4> Now is:  ${now} milliseconds after 1970 </h4>
+                <h4> Now is:  ${Math.floor(now/1000)} seconds after 1970 </h4>
+                <h4> Now is:  ${Math.floor(now/(1000*60))} minutes after 1970 </h4>
+                <h4> Now is:  ${Math.floor(now/(1000*60*60))} hours after 1970 </h4>
+                <h4> Now is:  ${Math.floor(now/(1000*60*60*24))} days after 1970 </h4>
+                <h4> Now is:  ${Math.floor(now/(1000*60*60*24*7))} weeks after 1970 </h4>
+                <h4> Now is:  ${Math.floor(now/(1000*60*60*24*7*52))} years after 1970 </h4>
+                <h4> Then is:  ${then} written in a different format! </h4>
+                <h4> I'm too lousy of a developer to do math between the two and give you a countdown because dates are making me mad </h4>
+
+            `;
+            console.log(`then: ${then}`);
+
+            for(var i=0; i < 5;i++){
+                var years = "";
+                years+= then[i];
+            }
+            console.log(`the year you chose is ${years} away`);
+            // I have the time in format 1111-11-11 but I want unix
+            // how do I convert the date I get from a form into a date I can do math with?
+            console.log(`now is ${now} and then is ${form.time.value}`);
+            var distance = then- now;
+            console.log(`distance: ${distance}`);
+            // check time value to not allow the past
+            jones();
+            form.reset();
+
+        }
+
+        var db = [
+            
+        ]
+        // technique learned on youtube for iterating through json with html and js
+        function idk(){
+            var data = `
+                    <ol>
+                `;
+            for(var i=0; i < db.length; i++){
+                if(db[i].occupation && db[i].time){
+                    data+= `<li> occupation: ${db[i].occupation}<p> time: ${db[i].time}</p></li>`;
+                    continue;
+                }
+                if(db[i].occupation){
+                    data+= `<li> occupation: ${db[i].occupation}</li>`;
+                }
+                if(db[i].time){
+                    data+= `<li> time: ${db[i].time}</li>`;
+                }
+                if(db[i].jay){
+                    data+= `<li>${db[i].jay}</li>`;
+                }
+            }
+
+            data += `
+                </ol>
+            `;
+            document.getElementById("database").innerHTML = data;
+        }
+
+</script>
+</body>
+
+</html>
